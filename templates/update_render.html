@@ -1,0 +1,77 @@
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+{% if user.is_authenticated %}
+ <div style="text-align:center">
+    Hi {{ user.first_name }}! Welocme to MindBowser!!
+</div>
+
+<!-- loading update form -->
+
+<div>
+  <form method="POST" class="post-form" action="/update_emp/{{emp_details.id}}">  
+              {% csrf_token %}  
+          <div class="container">  
+      <br>  
+          <div class="form-group row">  
+          <label class="col-sm-1 col-form-label"></label>  
+          <div class="col-sm-4">  
+          <h3>Update Details</h3>  
+          </div>  
+        </div>    
+        <div class="form-group row">  
+          <label class="col-sm-2 col-form-label">First Name:</label>  
+          <div class="col-sm-4">  
+              <input type="text" name="fname" id="fname" required maxlength="100" value="{{ emp_details.fname }}" />  
+          </div>  
+        </div>  
+          <div class="form-group row">  
+          <label class="col-sm-2 col-form-label">Last Name:</label>  
+          <div class="col-sm-4">  
+              <input type="text" name="lname" id="lname" required maxlength="100" value="{{ emp_details.lname }}" />  
+          </div>  
+        </div>  
+          <div class="form-group row">  
+          <label class="col-sm-2 col-form-label">Company:</label>  
+          <div class="col-sm-4">  
+              <input type="text" name="company" id="company" required maxlength="100" value="{{ emp_details.company }}" />  
+          </div>  
+        </div>
+        <div class="form-group row">  
+          <label class="col-sm-2 col-form-label">Address:</label>  
+          <div class="col-sm-4">  
+              <input type="text" name="address" id="address" required maxlength="100" value="{{ emp_details.address }}" />  
+          </div>  
+        </div>  
+          <div class="form-group row">  
+          <label class="col-sm-1 col-form-label"></label>  
+          <div class="col-sm-4">  
+          <button type="submit" class="btn btn-success">Update</button>  
+          </div>  
+        </div>  
+          </div>  
+      </form>  
+</div>
+
+<!-- loading update form ends -->
+
+
+
+
+<p><a href="{% url 'logout' %}"><button class="btn btn-danger">logout</button></a></p>
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}"><button class="btn btn-sucess">login</button></a>
+{% endif %}
+{% endblock %}
+</html>
+
